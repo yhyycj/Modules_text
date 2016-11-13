@@ -1,6 +1,9 @@
 # coding: utf-8
 
-def fastaParser(infile = r'C:\Users\310149083\Desktop\Candice\20150203_iBaby\alldata_7062\fasta\200sampleforClean\212_fasta\thread-9360-1_4-103.fasta', toPreprocess = False):
+def fastaParser(infile):
+    '''
+    parse the input fasta file, return a dict containing all sections and the contents
+    '''
     cur_section = None
     cur_content = ''
     rlts = {}
@@ -13,8 +16,6 @@ def fastaParser(infile = r'C:\Users\310149083\Desktop\Candice\20150203_iBaby\all
             cur_content = ''
         else:
             if len(line.strip()):
-                if toPreprocess:
-                    line = prProcessOneString(line)
                 cur_content += line
         rlts[cur_section] = cur_content
     return rlts
