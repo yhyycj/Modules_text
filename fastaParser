@@ -1,0 +1,20 @@
+# coding: utf-8
+
+def fastaParser(infile = r'C:\Users\310149083\Desktop\Candice\20150203_iBaby\alldata_7062\fasta\200sampleforClean\212_fasta\thread-9360-1_4-103.fasta', toPreprocess = False):
+    cur_section = None
+    cur_content = ''
+    rlts = {}
+    for line in open(infile, 'r'):
+        line = line.lstrip().decode('utf8')
+        if line.startswith('>'):
+            if cur_section is not None:
+                rlts[cur_section] = cur_content
+            cur_section = line.strip().lstrip('>')
+            cur_content = ''
+        else:
+            if len(line.strip()):
+                if toPreprocess:
+                    line = prProcessOneString(line)
+                cur_content += line
+        rlts[cur_section] = cur_content
+    return rlts
